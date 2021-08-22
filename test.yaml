@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  version: '0.0.1'
+  title: 'TEST-API'
+  description: ''
+
+paths:
+  /healthcheck:
+    get:
+      summary: Health check for the test api services. Used Internally
+      operationId: Internalhealthcheck
+      description: healthcheck for the test services status.
+      response:
+        '200':
+          description: This status is always returned when service is Ok.
+          content:
+            application/json:
+              shema:
+                $ref: '#/components/schemas/healthcheckObject'
+
+/api/v1/test/healthcheck:
+  get:
+    summary: Healthcheck for test service status. Used Externally
+    operationId: Externalhealthcheck
+    description: HealthCheck for payments service status
+    response:
+      '200':
+          description: This status is always returned when service is Ok.
+          content:
+            application/json:
+              shema:
+                $ref: '#/components/schemas/healthcheckObject'

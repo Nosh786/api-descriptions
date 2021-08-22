@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'INPUT-FORM-API'
+  description: ''
+
+paths:
+  /api/v1/test/healthcheck:
+    get:
+      summary: Health check for the test api services. Used Internally
+      operationId: Externalhealthcheck
+      description: healthcheck for the test services status.
+      responses:
+        '200':
+          description: This status is always returned when service is Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthcheckObject'
+
+  /api/v1/test/newformentry:
+    post:
+      summary: End Point to insert data into the new table.
+      operationId: NewFormEntry
+      description: EndPoint to insert data for new form.
+      requestBody:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/NewFormEntry'
+      responses:
+        '200':
+          description: This status is always returned when service is Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthcheckObject'
+
+components:
+  schemas:
+    NewFormEntry:
+        type: object
+        properties:
+          UserInformation:
+            $ref: '#/components/schemas/UserInformation'
+          AddressInformation:
+            $ref: '#/components/schemas/AddressInformation'
+          ContactInformation:
+            $ref: '#/components/schemas/ContactInformation'
+          MessageFromBene:
+            $ref: '#/components/schemas/MessageFromBene'
+         
+    UserInformation:
+      required:
+        - FirstName
+        - LastName
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+          
+    AddressInformation:
+      required:
+        - StreetAddress
+        - City
+        - State
+        - ZipCode
+      properties:
+        StreetAddress:
+          type: string
+        StreetAddress2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string  
+        ZipCode:
+          type: integer
+          format: int64
+          
+    ContactInformation:
+      required:
+        - PhoneNumber
+        - Email
+      properties:
+        PhoneNumber:
+          type: integer
+          format: int64
+          maximum: 9
+        Email:
+          type: string
+        HomePhone:
+          type: integer
+          format: int64
+          maximum: 9
+        Cell:
+          type: integer
+          format: int64
+          maximum: 9
+        WorkPhone:
+          type: integer
+          format: int64
+          maximum: 9
+    
+    MessageFromBene:
+      required:
+        - Message
+      properties:
+        PhoneNumber:
+          type: integer
+          format: int64
+          maximum: 9
+        Message:
+          type: string
+    
+    HealthcheckObject:
+      required:
+        - Status
+        - ErrorMessage
+      properties:
+        Status:
+          type: string
+        ErrorMessage:
+          type: string
